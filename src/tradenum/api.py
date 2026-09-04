@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from functools import lru_cache
 
 from fastapi import FastAPI, HTTPException, Request
@@ -15,10 +16,25 @@ def get_agent() -> TradeNumAgent:
     return TradeNumAgent()
 
 
+def _cors_origins() -> list[str]:
+    raw = os.environ.get("TRADENUM_CORS_ORIGINS", "")
+    defaults = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    extra = [o.strip() for o in raw.split(",") if o.strip()]
+    return defaults + extra
+
+
+def _cors_origin_regex() -> str | None:
+    raw = os.environ.get("TRADENUM_CORS_ORIGIN_REGEX", "").strip()
+    if raw:
+        return raw
+    return r"https://.*\.vercel\.app"
+
+
 app = FastAPI(title="TradeNum", version="0.1.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=_cors_origins(),
+    allow_origin_regex=_cors_origin_regex(),
     allow_methods=["*"],
     allow_headers=["*"],
 )
