@@ -88,6 +88,10 @@ def chart(symbol: str) -> dict:
 
 
 def main() -> None:
+    import os
+
     import uvicorn
 
-    uvicorn.run("tradenum.api:app", host="127.0.0.1", port=8000, reload=True)
+    port = int(os.environ.get("PORT", "8000"))
+    reload = os.environ.get("TRADENUM_RELOAD", "").lower() in ("1", "true", "yes")
+    uvicorn.run("tradenum.api:app", host="0.0.0.0", port=port, reload=reload)
