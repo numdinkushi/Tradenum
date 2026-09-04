@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
-const API = process.env.TRADENUM_API_URL ?? "http://127.0.0.1:8000";
+function apiBase(): string {
+  const raw = process.env.TRADENUM_API_URL?.trim() || "http://127.0.0.1:8000";
+  return raw.replace(/\/+$/, "");
+}
+
+const API = apiBase();
 
 const nextConfig: NextConfig = {
   async rewrites() {
