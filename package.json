@@ -1,4 +1,8 @@
 {
+  "private": true,
+  "scripts": {
+    "vercel-build": "cd web && npm install && npm run build"
+  },
   "dependencies": {
     "@liveblocks/client": "^3.24.1",
     "@liveblocks/node": "^3.24.1",
