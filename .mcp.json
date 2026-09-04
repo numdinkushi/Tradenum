@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tradenum": {
+      "command": "uv",
+      "args": ["run", "tradenum-mcp"]
+    }
+  }
+}

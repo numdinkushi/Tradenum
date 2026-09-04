@@ -1,0 +1,29 @@
+from __future__ import annotations
+
+from datetime import date
+from typing import Protocol
+
+from tradenum.domain.enums import Right
+from tradenum.domain.models import (
+    AccountSnapshot,
+    ClockSnapshot,
+    OptionContract,
+    OrderAck,
+    Position,
+    Quote,
+    UnderlyingSnapshot,
+)
+
+
+class MarketGateway(Protocol):
+    live: bool
+
+    def account(self) -> AccountSnapshot: ...
+    def clock(self) -> ClockSnapshot: ...
+    def snapshot_underlying(self, symbol: str) -> UnderlyingSnapshot | None: ...
+    def option_chain(self, symbol: str, expiration: date, right: Right) -> list[OptionContract]: ...
+    def option_quotes(self, symbols: list[str]) -> dict[str, Quote]: ...
+    def next_expiry(self, min_dte: int, max_dte: int) -> date | None: ...
+    def submit_order(self, payload: dict) -> OrderAck: ...
+    def positions(self) -> list[Position]: ...
+    def close_position(self, symbol: str) -> None: ...

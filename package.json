@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@liveblocks/client": "^3.24.1",
+    "@liveblocks/node": "^3.24.1",
+    "@liveblocks/react": "^3.24.1",
+    "@liveblocks/react-ui": "^3.24.1",
+    "@xyflow/react": "^12.11.6",
+    "lightweight-charts": "^5.2.1",
+    "react-resizable-panels": "^4.12.3"
+  }
+}
