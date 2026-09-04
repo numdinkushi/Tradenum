@@ -1,11 +1,12 @@
-import { liveblocks } from "@/lib/liveblocks";
+import { getLiveblocks } from "@/lib/liveblocks";
 
 export async function POST() {
-  if (!process.env.LIVEBLOCKS_SECRET_KEY) {
+  if (!process.env.LIVEBLOCKS_SECRET_KEY?.trim()) {
     return Response.json({ error: "Liveblocks is not configured" }, { status: 501 });
   }
 
   try {
+    const liveblocks = getLiveblocks();
     const session = liveblocks.prepareSession("tradenum-operator", {
       userInfo: {
         name: "Operator",
