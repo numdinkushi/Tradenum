@@ -13,3 +13,5 @@ data/*.db-journal
 .DS_Store
 dist/
 build/
+.next/
+web/.next/

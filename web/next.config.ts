@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 function apiBase(): string {
@@ -8,6 +9,7 @@ function apiBase(): string {
 const API = apiBase();
 
 const nextConfig: NextConfig = {
+  outputFileTracingRoot: path.join(__dirname, ".."),
   async rewrites() {
     return [
       { source: "/api/state", destination: `${API}/api/state` },
